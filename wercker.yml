@@ -2,16 +2,22 @@ box: wercker-labs/docker
 build:
   steps:
     - script:
+        name: docker version
+        code: |
+          sudo docker version
+    - script:
         name: docker build "base"
         code: |
-          # Build base
           sudo docker build -t boot2docker-base base/
     - script:
         name: docker build "rootfs"
         code: |
-          # Build base
           sudo docker build -t boot2docker rootfs/
     - script:
-        name: list images
+        name: run docker container
         code: |
-          sudo docker images
+          sudo docker run -name boot2docker --privileged boot2docker
+    - script:
+        name: copy iso to host
+        code: |
+          sudo docker cp boot2docker:/boot2docker.iso .
