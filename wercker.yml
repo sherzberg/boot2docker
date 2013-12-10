@@ -14,5 +14,4 @@ build:
     - script:
         name: list images
         code: |
-          # List docker images, it should list the rethinkdb image
           sudo docker images
